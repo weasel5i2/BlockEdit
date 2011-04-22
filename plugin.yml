@@ -1,0 +1,21 @@
+name: BlockEdit
+author: weasel5i2
+main: net.weasel.BlockEdit.BlockEdit
+version: 1.3
+commands:
+  blockset:
+    description: Sets the block type and/or data value
+    usage: /BSET <block id> [data value]
+    aliases: bset
+  blockget:
+    description: See what your current block settings are
+    usage: /BGET
+    aliases: bget
+  blockdata:
+    description: Sets the default block data value
+    usage: /BDATA <num>
+    aliases: bdata
+  blocktype:
+    description: Sets the default block type value
+    usage: /BTYPE <block ID>
+    aliases: btype
