@@ -1,0 +1,19 @@
+Changelog:
+
+Version 1.31 26-Apr-2011
+* Recompiled against latest recommended Craftbukkit build #733.
+
+Version 1.3 19-Apr-2011
+* Recompiled against latest recommended Craftbukkit build #684.
+
+Version 1.21 30-Mar-2011
+* Recompiled against latest recommended Craftbukkit build #602.
+
+Version 1.2 22-Mar-2011
+* Removed rudimentary permissions and added Permissions 2.5.4
+
+Version 1.1 18-Mar-2011
+* Added rudimentary permissions
+
+Version 1.0 16-Mar-2011
+* Created plugin
