@@ -1,7 +1,7 @@
 name: BlockEdit
 author: weasel5i2
 main: net.weasel.BlockEdit.BlockEdit
-version: 1.31
+version: 1.32
 commands:
   blockset:
     description: Sets the block type and/or data value

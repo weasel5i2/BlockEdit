@@ -2,6 +2,7 @@ package net.weasel.BlockEdit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
@@ -39,30 +40,39 @@ public class Listener extends PlayerListener
 	
 	public void onPlayerInteract( PlayerInteractEvent e )
 	{
-		Player player = e.getPlayer();
-
-		if( BlockEdit.isAllowedUse(player) == false ) return;
-
-		int heldItem = player.getItemInHand().getTypeId();
-		
-		if( heldItem == 262 )
+		if( e.getAction() == Action.RIGHT_CLICK_BLOCK 
+		|| e.getAction() == Action.RIGHT_CLICK_AIR )
 		{
-			Block targetBlock = player.getTargetBlock(null, 100);
-			Integer X = targetBlock.getX();
-			Integer Y = targetBlock.getY();
-			Integer Z = targetBlock.getZ();
+			Player player = e.getPlayer();
+	
+			if( BlockEdit.isAllowedUse(player) == false ) return;
+	
+			int heldItem = player.getItemInHand().getTypeId();
 			
-			player.sendMessage( ChatColor.GREEN + "Block @ " 
-					+ ChatColor.YELLOW + X + ChatColor.WHITE + "," 
-					+ ChatColor.YELLOW + Y + ChatColor.WHITE + "," 
-					+ ChatColor.YELLOW + Z + ChatColor.WHITE + ": ID=" 
-					+ ChatColor.YELLOW + targetBlock.getTypeId() + " " 
-					+ ChatColor.AQUA + "(" + BlockEdit.getBlockName(targetBlock.getTypeId()) + ")"
-					+ ChatColor.GREEN + ":" );
-			
-			player.sendMessage( ChatColor.BLUE + " * Chunk: " + ChatColor.YELLOW + targetBlock.getChunk().getX() + ChatColor.WHITE + "," + ChatColor.YELLOW + targetBlock.getChunk().getZ() + ChatColor.WHITE + "." );
-			player.sendMessage( ChatColor.BLUE + " * Biome: " + ChatColor.YELLOW + targetBlock.getBiome().name());
-			player.sendMessage( ChatColor.BLUE + " * Data : " + ChatColor.YELLOW + targetBlock.getData() + ChatColor.WHITE );
-		}
+			if( heldItem == 262 )
+			{
+				Block targetBlock = player.getTargetBlock(null, 100);
+				Integer X = targetBlock.getX();
+				Integer Y = targetBlock.getY();
+				Integer Z = targetBlock.getZ();
+				float D = player.getLocation().getYaw();
+				
+				if( D < 0 ) D += 360;
+				if( D > 360 ) D -= 360;
+				
+				player.sendMessage( ChatColor.GREEN + "Block @ " 
+						+ ChatColor.YELLOW + X + ChatColor.WHITE + "," 
+						+ ChatColor.YELLOW + Y + ChatColor.WHITE + "," 
+						+ ChatColor.YELLOW + Z + ChatColor.WHITE + ": ID=" 
+						+ ChatColor.YELLOW + targetBlock.getTypeId() + " " 
+						+ ChatColor.AQUA + "(" + BlockEdit.getBlockName(targetBlock.getTypeId()) + ")"
+						+ ChatColor.GREEN + ":" );
+
+				player.sendMessage( ChatColor.BLUE + " * Heading: " + ChatColor.YELLOW + D + ChatColor.BLUE + "()" );
+				player.sendMessage( ChatColor.BLUE + " * Chunk: " + ChatColor.YELLOW + targetBlock.getChunk().getX() + ChatColor.WHITE + "," + ChatColor.YELLOW + targetBlock.getChunk().getZ() + ChatColor.WHITE + "." );
+				player.sendMessage( ChatColor.BLUE + " * Biome: " + ChatColor.YELLOW + targetBlock.getBiome().name());
+				player.sendMessage( ChatColor.BLUE + " * Data : " + ChatColor.YELLOW + targetBlock.getData() + ChatColor.WHITE );
+			}
+		}	
 	}
 }
